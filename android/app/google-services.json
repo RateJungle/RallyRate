@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "569601376906",
+    "project_id": "rallyrate-61590",
+    "storage_bucket": "rallyrate-61590.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569601376906:android:2aa70459b544fab11b6373",
+        "android_client_info": {
+          "package_name": "com.rallyrate.rally_rate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569601376906-8fi788rslqb99n6ubus4pnkroj8lcv0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiBSEIwaLWTi6zqREJBDCtMgBTOfD6UZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569601376906-8fi788rslqb99n6ubus4pnkroj8lcv0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
