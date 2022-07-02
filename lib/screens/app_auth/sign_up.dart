@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rally_rate/app_auth/verify_email.dart';
+import 'package:rally_rate/screens/app_auth/verify_email.dart';
 import 'package:rally_rate/firebase_authentication/auth_firebase.dart';
 import 'package:rally_rate/components/string_codes.dart';
 import 'package:rally_rate/firebase_cloud_firestore/firestore.dart';
@@ -141,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                     obscureText: _isHidden,
                     validator: (input) => _isPasswordValid(input)
                         ? null
-                        : 'Password should contain 8 characters minimum with numbers, letters and symbols',
+                        : 'Password should contain 8 characters minimum with\nnumbers, letters and symbols',
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                           onPressed: _togglePasswordView,

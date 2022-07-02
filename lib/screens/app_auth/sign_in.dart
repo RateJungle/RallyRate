@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rally_rate/app_auth/reset_password.dart';
-import 'package:rally_rate/app_auth/sign_up.dart';
-import 'package:rally_rate/app_auth/verify_email.dart';
+import 'package:rally_rate/screens/app_auth/reset_password.dart';
+import 'package:rally_rate/screens/app_auth/sign_up.dart';
+import 'package:rally_rate/screens/app_auth/verify_email.dart';
 import 'package:rally_rate/firebase_authentication/auth_firebase.dart';
 import 'package:rally_rate/components/string_codes.dart';
-import 'package:rally_rate/home/home.dart';
+import 'package:rally_rate/screens/home/home.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -39,11 +39,14 @@ class _SignInState extends State<SignIn> {
         child: Form(
           key: _formKey,
           child: Column(
+
             children: [
+              const SizedBox(height: 50,),
               Image.asset(
-                "assets/logo.png",
-                scale: 1.0,
+                "assets/logo/6.png",
+                scale: 2.0,
               ),
+              const SizedBox(height: 50,),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 child: TextFormField(
@@ -52,16 +55,10 @@ class _SignInState extends State<SignIn> {
                       ? null
                       : 'Please enter a valid email',
                   controller: _emailController,
-                  decoration: InputDecoration(
-                      // errorText: _isValidEmail(_emailController.value.text)
-                      //     ? null
-                      //     : 'Please enter a valid email',
+                  decoration: const InputDecoration(
                       labelText: "Email",
-                      labelStyle: const TextStyle(
-                          //color: emailFocusNode.hasFocus? Colors.red : Colors.grey,
-                          ),
-                      border: const OutlineInputBorder(),
-                      focusedBorder: const OutlineInputBorder(
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey))),
                 ),
               ),

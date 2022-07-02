@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rally_rate/firebase_authentication/auth_firebase.dart';
-import 'package:rally_rate/home/home.dart';
+import 'package:rally_rate/screens/home/home.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({Key? key}) : super(key: key);
@@ -68,12 +68,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 const SizedBox(height: 15,),
                 SizedBox(
                   width: double.infinity,
-                  height: 24,
                   child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50),
-                        primary: Colors.green,
-                      ),
                       onPressed: _canResendEmail
                           ? () async {
                         _canResendEmail=false;
@@ -83,9 +78,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
                       }
                       : null,
-                      icon: _canResendEmail? const Icon(Icons.email_outlined,size: 32,) : Text('$_currentTime'),
+                      icon: _canResendEmail? const Icon(Icons.email_outlined) : Text('$_currentTime'),
                       label: const Text(
-                        'Resend email', style: TextStyle(fontSize: 24),)
+                        'Resend email')
                   ),
                 ),
 
