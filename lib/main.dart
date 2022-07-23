@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rally_rate/screens/app_auth/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rally_rate/screens/app_navigation/write_screen.dart';
 import 'package:rally_rate/screens/splash_screen.dart';
 
 Future<void> main() async{

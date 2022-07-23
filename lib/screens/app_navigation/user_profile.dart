@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rally_rate/firebase_authentication/auth_firebase.dart';
 import 'package:rally_rate/firebase_cloud_firestore/firestore.dart';
 import 'package:rally_rate/models/user.dart';
+import 'package:rally_rate/screens/app_navigation/user_profile_navigation/grid_view.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -214,10 +215,11 @@ class _UserProfileState extends State<UserProfile> {
                                   Icon(Icons.stars_outlined)
                                 ],
                               ),
-                              Container(
-                                height: 400,
-                                child: TabBarView(children: [
-                                  Center(child: Text('Grid view')),
+                              SizedBox(
+                                height: double.maxFinite,
+                                child: TabBarView(
+                                    children: [
+                                  ProfileGridView(),
                                   Center(child: Text('Timeline view')),
                                   Center(child: Text('Stories')),
                                   Center(child: Text('Rated posts'))
@@ -233,4 +235,5 @@ class _UserProfileState extends State<UserProfile> {
           );
         });
   }
+
 }

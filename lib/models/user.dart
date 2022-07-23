@@ -12,6 +12,7 @@ class UserModel {
   List<String>? posts;
   String? bio;
   String? imageUrl;
+  List<String>? ratedPosts;
 
   UserModel(
       {required this.name,
@@ -24,6 +25,7 @@ class UserModel {
       this.friends,
       this.posts,
       this.bio,
+        this.ratedPosts,
       this.imageUrl});
 
   Map<String, dynamic> toMap() => {
@@ -36,7 +38,8 @@ class UserModel {
         'friends': friends,
         'posts': posts,
     'bio': bio,
-    'imageUrl': imageUrl
+    'imageUrl': imageUrl,
+    'ratedPosts':ratedPosts ?? []
       };
 
   static UserModel fromDocumentSnapshot(DocumentSnapshot documentSnapshot) {
@@ -46,6 +49,7 @@ class UserModel {
         phone: documentSnapshot.get('phone').toString(),
         username: documentSnapshot.get('username').toString(),
         gender: documentSnapshot.get('gender').toString(),
+        ratedPosts: List<String>.from(documentSnapshot.get('ratedPosts') ?? []),
         followers: (documentSnapshot.get('followers') == null)
             ? <String>[]
             : List<String>.from(documentSnapshot.get('followers')),

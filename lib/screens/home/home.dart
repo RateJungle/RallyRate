@@ -1,8 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rally_rate/components/custom_drawer.dart';
 import 'package:rally_rate/components/expandable_fab/action_button.dart';
 import 'package:rally_rate/components/expandable_fab/expanded_fab.dart';
+import 'package:rally_rate/firebase_authentication/auth_firebase.dart';
+import 'package:rally_rate/firebase_cloud_firestore/firestore.dart';
+import 'package:rally_rate/models/user.dart';
+import 'package:rally_rate/screens/app_navigation/gallery_image_screen.dart';
 import 'package:rally_rate/screens/app_navigation/write_screen.dart';
+import 'package:rally_rate/screens/home/following_post_view.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,6 +25,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final email = AuthService().currentUserEmail;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -61,27 +71,46 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        body: TabBarView(
-            children: [
-              Center(child: Text('Search')),
-              Center(child: Text('Following')),
-              Center(child: Text('Trending'))
-            ]
+        body: StreamBuilder<DocumentSnapshot>(
+          stream: FirestoreOperations(email: email).userData,
+          builder: (context, snapshot) {
+            if(!snapshot.hasData){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            final user = UserModel.fromDocumentSnapshot(snapshot.data!);
+            return TabBarView(
+                children: [
+                  Center(child: Text('Search')),
+                  Following(following: user.following ?? [],ratedPosts: user.ratedPosts ?? [],),
+                  Center(child: Text('Trending'))
+                ]
+            );
+          }
         ),
         floatingActionButton: ExpandableFab(
           distance: 112.0,
           children: [
             ActionButton(
               onPressed: () {},
+              icon: const Icon(Icons.videocam),
+            ),
+            ActionButton(
+              onPressed: () {},
               icon: const Icon(Icons.camera_alt),
             ),
             ActionButton(
-              onPressed: () {},
+              onPressed: () async {
+                final File? imagePath = await _pickImage();
+                if(imagePath == null){
+                  return;
+                }
+                debugPrint('imagePath: ${imagePath ?? 'no path'}');
+                Navigator.of(context).push(_createPageRoute(GalleryImageScreen(imagePath: imagePath!)));
+              },
               icon: const Icon(Icons.insert_photo),
-            ),
-            ActionButton(
-              onPressed: () {},
-              icon: const Icon(Icons.videocam),
             ),
             ActionButton(
               onPressed: () {
@@ -93,6 +122,18 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future<File?> _pickImage() async {
+    try{
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return null;
+      final imageFile = File(image.path);
+      return imageFile;
+    } on PlatformException catch(e){
+      debugPrint('Platform exception: ${e.toString()}');
+      return null;
+    }
   }
 
   void _openEndDrawer() {
